@@ -54,8 +54,13 @@ public class LandingActivity extends AppCompatActivity {
 
         switch( requestCode ){
             case READ_EXTERNAL_PERMISSION_CODE:
-            case CAMERA_PERMISSION:
                 //call cursor loader
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initialize();
+                    }
+                },1500);
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -67,7 +72,7 @@ public class LandingActivity extends AppCompatActivity {
     private  void CheckExternalStoragePermission(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ){
 
-            if(ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED )
+            if(ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED )
             {
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -90,8 +95,8 @@ public class LandingActivity extends AppCompatActivity {
                     CheckExternalStoragePermission();
                 }
 
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, READ_EXTERNAL_PERMISSION_CODE);
-                requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, READ_EXTERNAL_PERMISSION_CODE);
+
             }
 
         }
