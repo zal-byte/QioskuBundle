@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:hint="Full name">
+                    android:hint="Email">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_email_signup"
                         android:layout_width="match_parent"
