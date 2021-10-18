@@ -28,22 +28,23 @@ public class LandingActivity extends AppCompatActivity {
 
         CheckExternalStoragePermission();
 
-        initialize();
+
 
     }
 
     public void initialize()
     {
         userSession = new UserSession(LandingActivity.this);
-        if( userSession.isLogin() == true)
+        if(userSession.isLogin())
         {
             //Goto MainActivity
+            startActivity(new Intent(LandingActivity.this, MainActivity.class));
         }else
         {
             //Need an authentication first
             startActivity(new Intent(LandingActivity.this, AuthActivity.class));
-            LandingActivity.this.finish();
         }
+        LandingActivity.this.finish();
     }
 
     @Override
@@ -52,12 +53,7 @@ public class LandingActivity extends AppCompatActivity {
         switch( requestCode ){
             case READ_EXTERNAL_PERMISSION_CODE:
             case CAMERA_PERMISSION:
-                if( grantResults[0] == PackageManager.PERMISSION_GRANTED )
-                {
-
-                    //call cursor loader
-                    
-                }
+                //call cursor loader
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -71,16 +67,12 @@ public class LandingActivity extends AppCompatActivity {
 
             if(ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED )
             {
-
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(LandingActivity.this, MainActivity.class));
-                        LandingActivity.this.finish();
+                        initialize();
                     }
-                }, 2000);
-
-
+                },1500);
             }else
             {
 
