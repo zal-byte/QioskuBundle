@@ -24,6 +24,8 @@ public class LandingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
+        AuthActivity.HideSystemUI(LandingActivity.this);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         CheckExternalStoragePermission();
@@ -35,7 +37,7 @@ public class LandingActivity extends AppCompatActivity {
     public void initialize()
     {
         userSession = new UserSession(LandingActivity.this);
-        if(userSession.isLogin())
+        if(userSession.isLogin() == true)
         {
             //Goto MainActivity
             startActivity(new Intent(LandingActivity.this, MainActivity.class));

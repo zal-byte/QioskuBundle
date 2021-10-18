@@ -12,7 +12,21 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Request {
+public class Server extends Request{
+
+    public String api = "http://192.168.43.15/QiosKu/api.php";
+
+    @Override
+    public String get(String url) throws IOException {
+        return super.get(url);
+    }
+    @Override
+    public String post(String url, HashMap<String, String> param) throws IOException {
+        return super.post(url, param);
+    }
+}
+
+class Request {
 
     public String get(String url) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -53,15 +67,14 @@ public class Request {
         URL site = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) site.openConnection();
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-        connection.setReadTimeout(127000);
-        connection.setConnectTimeout(127000);
+//        connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+        connection.setReadTimeout(27000);
+        connection.setConnectTimeout(27000);
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        connection.connect();
 
         OutputStream os = connection.getOutputStream();
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
 
         bw.write(param(map));
         bw.flush();
@@ -70,6 +83,7 @@ public class Request {
 
         if( connection.getResponseCode() == HttpURLConnection.HTTP_OK)
         {
+            System.out.println("HTTP_RESPONSE_> " +String.valueOf(connection.getResponseCode()));
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
             while((line = br.readLine()) != null)
