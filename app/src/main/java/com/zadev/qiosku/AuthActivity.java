@@ -1,33 +1,23 @@
 package com.zadev.qiosku;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.volley.AsyncRequestQueue;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.zadev.qiosku.Helper.Server;
@@ -39,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import Session.UserSession;
 
@@ -107,74 +98,74 @@ public class AuthActivity extends AppCompatActivity {
     }
     public void logic()
     {
-        txt_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if( hidden_view.getVisibility() == View.VISIBLE)
-                {
-                   less();
-                }else
-                {
-                    expand();
-                }
+        txt_register.setOnClickListener(view -> {
+            if( hidden_view.getVisibility() == View.VISIBLE)
+            {
+
+               less();
+
+            }else
+            {
+
+                expand();
+
             }
         });
 
-        btn_signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String name = edt_name_signup.getText().toString();
-                final String phone = edt_phone_signup.getText().toString();
-                final String address= edt_address_signup.getText().toString();
-                final String email = edt_email_signup.getText().toString();
-                final String password = edt_password_signup.getText().toString();
-                final String username = edt_username_signup.getText().toString();
+        btn_signup.setOnClickListener(view -> {
 
-                //Demnnn :V
-                if( name.length() < 3 )
+            final String name = Objects.requireNonNull(edt_name_signup.getText()).toString();
+            final String phone = Objects.requireNonNull(edt_phone_signup.getText()).toString();
+            final String address= Objects.requireNonNull(edt_address_signup.getText()).toString();
+            final String email = Objects.requireNonNull(edt_email_signup.getText()).toString();
+            final String password = Objects.requireNonNull(edt_password_signup.getText()).toString();
+            final String username = Objects.requireNonNull(edt_username_signup.getText()).toString();
+
+            //Demnnn :V
+            if( name.length() < 3 )
+            {
+                edt_name_signup.setError("Please fill name correctly.");
+            }else
+            {
+                if( phone.length() < 10 )
                 {
-                    edt_name_signup.setError("Please fill name correctly.");
+                    edt_phone_signup.setError("Please input phone number correctly.");
                 }else
                 {
-                    if( phone.length() < 10 )
+                    if( address.length() < 5 )
                     {
-                        edt_phone_signup.setError("Please input phone number correctly.");
+                        edt_address_signup.setError("Where are you from ?");
                     }else
                     {
-                        if( address.length() < 5 )
+                        if( email.length() < 3 )
                         {
-                            edt_address_signup.setError("Where are you from ?");
+                            edt_email_signup.setError("Please fill email correctly.");
                         }else
                         {
-                            if( email.length() < 3 )
+                            if( password.length() < 5 )
                             {
-                                edt_email_signup.setError("Please fill email correctly.");
+                                edt_password_signup.setError("You need a strong password not less than 5 characters !");
                             }else
                             {
-                                if( password.length() < 5 )
+                                if( username.length() < 2 )
                                 {
-                                    edt_password_signup.setError("You need a strong password not less than 5 characters !");
+                                    edt_username_signup.setError("Not less than 2 characters !");
                                 }else
                                 {
-                                    if( username.length() < 2 )
-                                    {
-                                        edt_username_signup.setError("Not less than 2 characters !");
-                                    }else
-                                    {
-                                        signupParam.put("token","VjJ0V2FrNVhUbk5qUm1oUFZteEtiMVpxU2xOTlZuQkhZVVZPWVdGNlJsWlZNV2gyVUZFOVBRPT0=");
-                                        signupParam.put("u_name", name);
-                                        signupParam.put("u_username",username);
-                                        signupParam.put("u_password",password);
-                                        signupParam.put("req","authSignup");
-                                        signupParam.put("u_address",address);
-                                        signupParam.put("u_email", email);
-                                        signupParam.put("u_phone", phone);
 
-                                        if( signupParam.size() > 0 )
-                                        {
-                                            //Go ahead
-                                            signup();
-                                        }
+                                    signupParam.put("token","VjJ0V2FrNVhUbk5qUm1oUFZteEtiMVpxU2xOTlZuQkhZVVZPWVdGNlJsWlZNV2gyVUZFOVBRPT0=");
+                                    signupParam.put("u_name", name);
+                                    signupParam.put("u_username",username);
+                                    signupParam.put("u_password",password);
+                                    signupParam.put("req","authSignup");
+                                    signupParam.put("u_address",address);
+                                    signupParam.put("u_email", email);
+                                    signupParam.put("u_phone", phone);
+
+                                    if( signupParam.size() > 0 )
+                                    {
+                                        //Go ahead
+                                        signup();
                                     }
                                 }
                             }
@@ -184,37 +175,35 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Auth
-                final String username = edt_username_login.getText().toString();
-                final String password = edt_password_login.getText().toString();
-                if( username.length() < 3 )
+        btn_login.setOnClickListener(view -> {
+            //Auth
+            final String username = Objects.requireNonNull(edt_username_login.getText()).toString();
+            final String password = Objects.requireNonNull(edt_password_login.getText()).toString();
+            if( username.length() < 3 )
+            {
+                edt_username_login.setError("Please fill username correctly.");
+            }else{
+                if( password.length() < 3 )
                 {
-                    edt_username_login.setError("Please fill username correctly.");
-                }else{
-                    if( password.length() < 3 )
-                    {
-                        edt_password_login.setError("Please fill password correctly.");
-                    }else
-                    {
-                        //Continue
-                        loginParam.put("u_username",username);
-                        loginParam.put("u_password",password);
-                        loginParam.put("token","VjFkMGFrNVhTblJTYkdoUFZteGFjRlJYTlZOak1XeDBaSHBTYkZKVVJuaFdSbEYzVUZFOVBRPT0=");
-                        loginParam.put("req","authLogin");
+                    edt_password_login.setError("Please fill password correctly.");
+                }else
+                {
+                    //Continue
+                    loginParam.put("u_username",username);
+                    loginParam.put("u_password",password);
+                    loginParam.put("token","VjFkMGFrNVhTblJTYkdoUFZteGFjRlJYTlZOak1XeDBaSHBTYkZKVVJuaFdSbEYzVUZFOVBRPT0=");
+                    loginParam.put("req","authLogin");
 
-                        if( loginParam.size() > 0 )
-                        {
-                            login();
-                        }
+                    if( loginParam.size() > 0 )
+                    {
+                        login();
                     }
                 }
             }
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void expand()
     {
         TransitionManager.beginDelayedTransition(main_cardview, new AutoTransition());
@@ -225,6 +214,7 @@ public class AuthActivity extends AppCompatActivity {
         txt_info.setText("Already have an account ?,");
         txt_register.setText(" Login.");
     }
+    @SuppressLint("SetTextI18n")
     private void less()
     {
         TransitionManager.beginDelayedTransition(main_cardview, new AutoTransition());
@@ -252,7 +242,7 @@ public class AuthActivity extends AppCompatActivity {
         for( int i = 0; i < jsonArray.length(); i++)
         {
             JSONObject object = jsonArray.getJSONObject(i);
-            if( object.getBoolean("signup_status") == true)
+            if(object.getBoolean("signup_status"))
             {
 
                 clearSignup();
@@ -272,7 +262,7 @@ public class AuthActivity extends AppCompatActivity {
         for( int i = 0; i < jsonArray.length(); i++)
         {
             JSONObject object = jsonArray.getJSONObject(i);
-            if( object.getBoolean("login_status") == true )
+            if(object.getBoolean("login_status"))
             {
                 Toast.makeText(this, "Login Successfuly.", Toast.LENGTH_SHORT).show();
                 userSession.setIsLogin(true, object.getString("u_name"), object.getString("u_address"), object.getString("u_phone"), object.getString("u_email"), object.getString("role"), object.getString("token"));
@@ -286,26 +276,19 @@ public class AuthActivity extends AppCompatActivity {
         }
     }
 
+
     @SuppressLint("StaticFieldLeak")
     private void signup()
     {
         StringRequest sr = new StringRequest(Request.Method.POST, server.api,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            signupParse(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                response -> {
+                    try {
+                        signupParse(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println("Volley_Response_> "+error.getMessage());
-                    }
-                })
+                error -> System.out.println("Volley_Response_> "+error.getMessage()))
         {
             @Override
             protected Map<String, String> getParams()
@@ -313,29 +296,24 @@ public class AuthActivity extends AppCompatActivity {
                 return signupParam;
             }
         };
-        RequestQueue asyncRequestQueue = (RequestQueue) Volley.newRequestQueue(this);
+        RequestQueue asyncRequestQueue = Volley.newRequestQueue(this);
         asyncRequestQueue.add(sr);
     }
+
     @SuppressLint("StaticFieldLeak")
     private void login()
     {
         StringRequest sr = new StringRequest(Request.Method.POST, server.api,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            loginParse(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                response -> {
+                    try {
+
+                        snacc.Snackme(response, false);
+                        loginParse(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println("Volley_Response_> "+error.getMessage());
-                    }
-                })
+                error -> System.out.println("Volley_Response_> "+error.getMessage()))
         {
             @Override
             protected Map<String, String> getParams()
@@ -343,8 +321,15 @@ public class AuthActivity extends AppCompatActivity {
                 return loginParam;
             }
         };
-        RequestQueue asyncRequestQueue = (RequestQueue) Volley.newRequestQueue(this);
+        RequestQueue asyncRequestQueue = Volley.newRequestQueue(this);
         asyncRequestQueue.add(sr);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        HideSystemUI(AuthActivity.this);
     }
 
 }

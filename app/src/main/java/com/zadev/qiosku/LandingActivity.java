@@ -17,7 +17,6 @@ import Session.UserSession;
 
 public class LandingActivity extends AppCompatActivity {
     private final static int READ_EXTERNAL_PERMISSION_CODE = 0;
-    private final static int CAMERA_PERMISSION = 1;
     UserSession userSession;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class LandingActivity extends AppCompatActivity {
     public void initialize()
     {
         userSession = new UserSession(LandingActivity.this);
-        if(userSession.isLogin() == true)
+        if(userSession.isLogin())
         {
             //Goto MainActivity
             startActivity(new Intent(LandingActivity.this, MainActivity.class));
@@ -52,19 +51,10 @@ public class LandingActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        switch( requestCode ){
-            case READ_EXTERNAL_PERMISSION_CODE:
-                //call cursor loader
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        initialize();
-                    }
-                },1500);
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
+        if (requestCode == READ_EXTERNAL_PERMISSION_CODE) {//call cursor loader
+            new Handler().postDelayed(this::initialize, 1500);
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
     }
@@ -73,14 +63,8 @@ public class LandingActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ){
 
             if(ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED )
-            {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        initialize();
-                    }
-                },1500);
-            }else
+                new Handler().postDelayed(this::initialize, 1500);
+            else
             {
 
                 if( shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE))

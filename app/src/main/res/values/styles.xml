@@ -11,8 +11,8 @@
 
     <!-- No Action bar -->
     <style name="AppThemeNoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/waveColor</item>
+        <item name="colorPrimaryDark">@color/waveColor</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="fontFamily">@font/google_sans</item>
     </style>

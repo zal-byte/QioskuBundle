@@ -1,5 +1,6 @@
 package Session;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -19,6 +20,7 @@ public class UserSession {
     String is_login = "is_login";
     // end of jjjsiSij
 
+    @SuppressLint("CommitPrefEdits")
     public UserSession(Context con) {
         this.con = con;
         sharedPreferences = con.getSharedPreferences(userSession, Context.MODE_PRIVATE);
@@ -36,6 +38,19 @@ public class UserSession {
         editor.apply();
         editor.commit();
     }
+    public void setLogout()
+    {
+        editor.putBoolean(this.is_login, false);
+        editor.putString(this.u_name, "");
+        editor.putString(this.u_address, "");
+        editor.putString(this.u_phone, "");
+        editor.putString(this.u_email, "");
+        editor.putString(this.role, "");
+        editor.putString(this.token, "");
+        editor.apply();
+        editor.commit();
+    }
+
 
     public boolean isLogin() {
         return sharedPreferences.getBoolean(this.is_login, false);

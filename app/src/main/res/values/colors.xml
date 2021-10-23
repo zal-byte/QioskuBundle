@@ -5,4 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="error">#983434</color>
     <color name="success">#4CAF50</color>
+    <color name="waveColor">#0099ff</color>
+    <color name="white">#f1f1f1</color>
 </resources>
