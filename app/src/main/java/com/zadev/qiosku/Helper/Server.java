@@ -14,8 +14,8 @@ import java.util.Map;
 
 public class Server extends Request{
 
-    public String api = "http://192.168.43.15/QiosKu/api.php";
-
+    public String api = "http://192.168.173.1/QiosKu/api.php";
+    //Testing
     @Override
     public String get(String url) throws IOException {
         return super.get(url);
